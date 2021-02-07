@@ -1,0 +1,58 @@
+import sys
+import copy
+from itertools import combinations
+
+input = sys.stdin.readline
+n = int(input())
+arr = []
+x = []
+t = []
+
+for i in range(n):
+  tmp = list(input().split())
+  for j in range(n):
+    if tmp[j] == 'X':
+      x.append((i, j))
+    elif tmp[j] == 'T':
+      t.append((i, j))
+
+  arr.append(tmp)
+
+comb = list(combinations(x, 3)) # x 중 3개의 좌표 조합
+
+dx = [0, 0, -1, +1] # 상하좌우
+dy = [-1, +1, 0, 0]
+
+def check_range(x, y):
+  if x < 0 or y < 0 or x >= n or y >= n:
+    return False
+  return True
+
+def search_student(tmp_arr): # 학생 찾기
+  for teacher in t:
+    a_tmp, b_tmp = a, b = teacher
+    for i in range(4):
+      check = False
+      a_tmp, b_tmp = a, b
+      while check_range(a_tmp + dx[i], b_tmp + dy[i]):
+        if tmp_arr[a_tmp + dx[i]][b_tmp + dy[i]] ==  'O':
+          check = True
+        elif tmp_arr[a_tmp + dx[i]][b_tmp + dy[i]] ==  'S':
+          if check == False: # 장애물없이 학생이 보이면  False
+            return False
+          else:
+            break
+        a_tmp += dx[i]
+        b_tmp += dy[i]
+  return True # 모든 감시를 피하고 True 반환
+
+result = 'NO'
+for o_list in comb:
+  tmp_arr = copy.deepcopy(arr) # 배열 복사
+  for o in o_list:
+    tmp_arr[o[0]][o[1]] = 'O'
+  if search_student(tmp_arr):
+    result = 'YES'
+  else:
+    continue
+print(result)
