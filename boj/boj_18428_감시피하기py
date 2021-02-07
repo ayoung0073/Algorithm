@@ -53,6 +53,7 @@ for o_list in comb:
     tmp_arr[o[0]][o[1]] = 'O'
   if search_student(tmp_arr):
     result = 'YES'
+    break
   else:
     continue
 print(result)
