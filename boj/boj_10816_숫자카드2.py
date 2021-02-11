@@ -47,3 +47,32 @@ for card in cards:
     hashmap[card] = 1
 
 print(' '.join(str(hashmap[i]) if i in hashmap else '0' for i in sols))
+
+#3 : 이진 탐색
+import sys
+input = sys.stdin.readline
+
+n = int(input())
+cards = sorted(list(map(int, input().split())))
+
+m = int(input())
+sols = list(map(int, input().split()))
+
+
+dict_sols = {}
+
+def binary_search_recur(num, arr, start, end):
+  if start > end: return 0
+  mid = (start + end) // 2
+  if num == arr[mid]:
+    return arr[start:end+1].count(num)
+  elif num < arr[mid]:
+    return binary_search_recur(num, arr, start, mid - 1)
+  else:
+    return binary_search_recur(num, arr, mid + 1, end)
+
+for card in cards:
+  if card not in dict_sols:
+    dict_sols[card] = binary_search_recur(card, cards, 0, n - 1)
+
+print(' '.join(str(dict_sols[i]) if i in dict_sols else '0' for i in sols))
