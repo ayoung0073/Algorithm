@@ -4,7 +4,7 @@ import sys
 import heapq
 
 input = sys.stdin.readline
-INF = int(10000000000000000000000000000000000)
+INF = int(1e10)
 
 n, m, k = map(int, input().split())
 graph = [[] for _ in range(n + 1)]
