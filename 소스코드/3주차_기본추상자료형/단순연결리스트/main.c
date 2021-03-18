@@ -48,7 +48,12 @@ void add(LinkedListType* L, int pos, int item)
 void addLast(LinkedListType* L, int item)
 {
     // for문에서 생각하기(add와 비슷하긴 한데)
-    
+    ListNode* node = (ListNode*)malloc(sizeof(ListNode));
+    ListNode* last;
+    for(last = L->head; last->link != NULL; last = last->link)
+    node->data = item;
+    node->link = last->link;
+    last->link = node;
 }
 
 int get(LinkedListType* L, int pos)
@@ -67,10 +72,17 @@ void set(LinkedListType* L, int pos, int item)
     p->data = item;
 }
 
-// void remove()
-// {
-    
-// }
+int remove_node(LinkedListType* L, int pos)
+{
+    ListNode* before = L->head; // 삭제할 노드의 이전 노드
+    for (int i = 0; i < pos - 2; i++)
+        before = before->link;
+    ListNode* remove = before->link;
+    before->link = remove->link; // 삭제 노드의 이전 노드 링크 수정
+    int data = remove->data; // 삭제 노드의 data (리턴값)
+    free(remove);
+    return data;
+}
 
 int main()
 {
@@ -86,7 +98,18 @@ int main()
     add(&list, 1, 40); printList(&list);
     add(&list, 3, 50); printList(&list);
     add(&list, 0, 30); printList(&list);
+
+    getchar();
     
+    addLast(&list, 100); printList(&list);
+    addLast(&list, 200); printList(&list);
+    
+    getchar();
+
+    remove_node(&list, 2); printList(&list);
+    
+    remove_node(&list, 2); printList(&list);
+
     int pos;
     printf("\n몇 번 노드의 값을 반환할까요? ");
     scanf("%d", &pos);
@@ -95,14 +118,17 @@ int main()
 }
 
 /*
-[4] -> NULL                                                                                                                             
-[10] -> [4] -> NULL                                                                                                                     
-[6] -> [10] -> [4] -> NULL                                                                                                              
-                                                                                                                                        
-[6] -> [40] -> [10] -> [4] -> NULL                                                                                                      
-[6] -> [40] -> [10] -> [50] -> [4] -> NULL                                                                                              
-[6] -> [30] -> [40] -> [10] -> [50] -> [4] -> NULL                                                                                      
-                                                                                                                                        
-몇 번 노드의 값을 반환할까요? 2                                                                                                         
-2번 노드의 값은 30                                                                                                                      
+[4] -> NULL                                                                                                     
+[10] -> [4] -> NULL                                                                                             
+[6] -> [10] -> [4] -> NULL                                                                                      
+                                                                                                                
+[6] -> [40] -> [10] -> [4] -> NULL                                                                              
+[6] -> [40] -> [10] -> [50] -> [4] -> NULL                                                                      
+[6] -> [30] -> [40] -> [10] -> [50] -> [4] -> NULL                                                              
+                                                                                                                
+[6] -> [30] -> [40] -> [10] -> [50] -> [4] -> [100] -> NULL                                                     
+[6] -> [30] -> [40] -> [10] -> [50] -> [4] -> [100] -> [200] -> NULL                                            
+                                                                                                                
+몇 번 노드의 값을 반환할까요? 4                                                                                 
+4번 노드의 값은 10                                                                                                                     
 */

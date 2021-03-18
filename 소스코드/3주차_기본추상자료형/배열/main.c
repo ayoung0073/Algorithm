@@ -11,7 +11,7 @@ typedef struct // ArrayList 구조체 선언
     int n; // 배열의 크기
 }ArrayList;
 
-void init(ArrayList* L) // ArrayList 초기화
+void init(ArrayList* L) // ArrayList 초기화 
 {
     L -> n = 0;
 }
