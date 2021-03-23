@@ -21,13 +21,6 @@ void buildList(ArrayList* A, int n)
         A->V[i] = i + 1;
 }
 
-void traverse(ArrayList* A) // 순회 메서드
-{
-    for(int i = 0; i < A -> n; i++)
-        printf("[%d] ", A -> V[i]);
-    printf("\n");
-}
-
 int runSimulation(ArrayList* A, int n, int k)
 {
     int r = 0;
@@ -35,7 +28,6 @@ int runSimulation(ArrayList* A, int n, int k)
     int size = n;
     while (n > 1)
     {
-        traverse(A);
         i = 0;
         while(i < k) // 간격만큼 이동
         {
@@ -48,7 +40,6 @@ int runSimulation(ArrayList* A, int n, int k)
         while (A->V[r] == 0) // 다음 끌 때 0 아닌 곳을 찾기 위함
             r = (r + 1) % size;
     }
-    traverse(A);
     return A->V[r];
 }
 
@@ -65,6 +56,8 @@ int candle(int n, int k) // 배열 사이즈, 간격
 
 int main()
 {
-    candle(7, 3);
+    printf("%d\n", candle(7, 3));
+    printf("%d\n", candle(13, 3));
+    printf("%d\n", candle(22, 5));
     return 0;
 }

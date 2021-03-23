@@ -28,13 +28,6 @@ void buildList(ArrayList* A, int n)
         A->V[i] = i + 1;
 }
 
-void traverse(ArrayList* A) // 순회 메서드
-{
-    for(int i = 0; i < A -> n; i++)
-        printf("[%d] ", A -> V[i]);
-    printf("\n");
-}
-
 int runSimulation(ArrayList* A, int n, int k)
 {
     int r = 0;
@@ -42,7 +35,6 @@ int runSimulation(ArrayList* A, int n, int k)
     {
         r = (r + k) % n;
         remove_node(A, r);
-        traverse(A);
         n--;
     }
     return A->V[0];
@@ -62,5 +54,7 @@ int candle(int n, int k) // 배열 사이즈, 간격
 int main()
 {
     printf("%d\n", candle(7, 3));
+    printf("%d\n", candle(13, 3));
+    printf("%d\n", candle(22, 5));
     return 0;
 }
