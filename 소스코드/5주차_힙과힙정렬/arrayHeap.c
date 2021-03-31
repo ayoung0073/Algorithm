@@ -75,9 +75,31 @@ void printHeap(HeapType* h)
     printf("\n");
 }
 
+void heapSort(HeapType* h, int list[])
+{
+    HeapType heap;
+    init(&heap);
+    for(int i = 1; i <= h->heap_size; i++)
+    {
+        heap.heap[i] = h->heap[i]; // 복사
+        heap.heap_size++; 
+    }
+
+    for(int i = 1; i <= h->heap_size; i++)
+        list[i] = removeMin(&heap); // 작은 값부터 순차적으로 지워짐
+}
+
+void printArray(int list[], int n)
+{
+    for(int i = 1; i <= n; i++)
+        printf("[%d] ", list[i]);
+    printf("\n");
+} 
+
 int main() 
 {
     HeapType heap;
+    int list[MAX_ELEMENT] = {0};
     init(&heap);
 
     // insert 함수 실행
@@ -94,11 +116,18 @@ int main()
 
     printHeap(&heap);
 
-    printf("deleted key : %d\n", removeMin(&heap));
+    // printf("deleted key : %d\n", removeMin(&heap));
     
+    heapSort(&heap, list);
+    printArray(list, heap.heap_size);
+
     printHeap(&heap);
 
     return 0;
 }
 
-// [1] [2] [1] [3] [5] [8] [4] [7] [10] [11] 
+/*
+[1] [2] [1] [3] [5] [8] [4] [7] [10] [11] 
+[1] [1] [2] [3] [4] [5] [7] [8] [10] [11] 
+[1] [2] [1] [3] [5] [8] [4] [7] [10] [11] 
+*/
