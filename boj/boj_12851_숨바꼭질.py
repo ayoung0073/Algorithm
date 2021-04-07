@@ -1,41 +1,39 @@
-## 12851. 숨바꼭질2
-
-import sys
-from collections import deque
-input = sys.stdin.readline
-
+## 12851. 숨바꼭질
+import heapq
 n, k = map(int, input().split())
 
-q = deque()
+INF = int(1e9)
+dp = [INF for _ in range(100001)]
 
-q.append((0, n))
-ans = int(1e9)
-ans_cnt = 0
-dp = [int(1e9)] * 100001
+q = []
+
+heapq.heappush(q, (0, n))
+ans = INF
+cnt = 0
 while q:
-  cnt, now = q.popleft()
-
-  if now == k:
-    if ans == int(1e9):
-      ans = cnt
-      ans_cnt += 1
-    elif cnt == ans:
-      ans_cnt += 1
-    continue
-
-  if cnt > ans:
+  sec, now = heapq.heappop(q)
+  
+  if sec > ans:
     break
-
-  else:
-    if now - 1 >= 0 and cnt + 1 <= dp[now - 1]:
-      q.append((cnt + 1, now - 1))
-      dp[now - 1] = cnt + 1
-    if now + 1 <= 100000 and cnt + 1 <= dp[now + 1]:
-      q.append((cnt + 1, now + 1))
-      dp[now + 1] = cnt + 1
-    if now * 2 <= 100000 and cnt + 1 <= dp[now * 2]:
-      q.append((cnt + 1, now * 2))
-      dp[now * 2] = cnt + 1
+    
+  if now == k:
+    if ans == INF:
+      ans = sec
+      cnt += 1
+    elif ans == sec:
+      cnt += 1
+    else:
+      break
+  
+  if now - 1 >= 0 and dp[now - 1] >= sec + 1:
+    dp[now - 1] = sec + 1
+    heapq.heappush(q, (sec + 1, now - 1))
+  if now + 1 <= 100000 and dp[now + 1] >= sec + 1:
+    dp[now + 1] = sec + 1
+    heapq.heappush(q, (sec + 1, now + 1))
+  if now * 2 <= 100000 and dp[now * 2] >= sec + 1:
+    dp[now * 2] = sec + 1
+    heapq.heappush(q, (sec + 1, now * 2))
 
 print(ans)
-print(ans_cnt)
+print(cnt)
