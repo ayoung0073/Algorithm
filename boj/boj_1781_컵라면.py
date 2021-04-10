@@ -1,20 +1,25 @@
-import heapq
 import sys
+import heapq
+
 input = sys.stdin.readline
-
 n = int(input())
-prob = []
-for _ in range(n):
-    a, b = map(int, input().split())
-    prob.append((a, b))
-
-prob.sort()
-
+arr = []
 q = []
 
-for i in prob:
-    heapq.heappush(q, i[1])
-    if i[0] < len(q):
-        heapq.heappop(q)
-    
+for _ in range(n):
+  deadline, num = map(int, input().split())
+  arr.append((deadline, num))
+
+arr.sort(key = lambda x : (x[0]))
+
+for deadline, num in arr:
+  if deadline > len(q):
+    heapq.heappush(q, num)
+  else:
+    num_comp = heapq.heappop(q)
+    if num_comp >= num:
+      heapq.heappush(q, num_comp)
+    else:
+      heapq.heappush(q, num)
+
 print(sum(q))
