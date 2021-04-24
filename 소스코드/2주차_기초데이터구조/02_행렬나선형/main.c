@@ -16,21 +16,21 @@ void spiral(int A[][SIZE], int n, int m)
             A[top][j] = value++;
         top++;
         
-        if (top <= bottom)
+        if (top <= bottom) // 위 -> 아래로 움직이는 경우 조건 체크
         {
             for(i = top; i <= bottom; i++)
                 A[i][right] = value++;
             right--;
         }
         
-        if (left <= right)
+        if (left <= right) // 오른쪽 -> 왼쪽으로 움직이는 경우 조건 체크
         {
             for(j = right; j >= left; j--)
                 A[bottom][j] = value++;
             bottom--;
         }
         
-        if(top <= bottom)
+        if(top <= bottom) // 아래 -> 위로 움직이는 경우 조건 체크
         {
             for (i = bottom; i >= top; i--)
                 A[i][left] = value++;

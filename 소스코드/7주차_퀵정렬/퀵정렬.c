@@ -39,6 +39,8 @@ int partition(int list[], int left, int right, int k)
     }while (low < high);
 
     SWAP(list[low], list[right], temp); // 피벗과 작은 값 교환(여기서는 high <= low)
+    printf("피벗의 위치: %d\n", low);
+
     return low; // 피벗의 위치 반환
 }
 

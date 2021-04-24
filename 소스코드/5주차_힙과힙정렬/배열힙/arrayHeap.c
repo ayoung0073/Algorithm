@@ -26,7 +26,7 @@ void upHeap(HeapType* h)
    while ((i != 1) && (key < h->heap[i / 2])) // 1, 2 동시 확인(반복)
    {
        // SWAP 진행
-       h->heap[i] = h->heap[i / 2]; // 이미 key를 저장해놓은 상태라서 바로 바꿀 수 있음
+       h->heap[i] = h->heap[i / 2]; // 부모노드를 자식노드로 옮김, 이미 key를 저장해놓은 상태라서 바로 바꿀 수 있음
        i /= 2;
    }
    h->heap[i] = key;
@@ -52,7 +52,7 @@ void downHeap(HeapType* h)
 
 void insertItem(HeapType* h, int key)
 {
-    h->heap_size++;
+    h->heap_size++; // 힙 재구성 전, 사이즈 먼저 늘리기
     h->heap[h->heap_size] = key;
     // upHeap 함수 호출
     upHeap(h);
@@ -62,7 +62,7 @@ int removeMin(HeapType* h)
 {
     int key = h->heap[1]; 
     h->heap[1] = h->heap[h->heap_size]; // 루트노드에 라스트노드 저장
-    h->heap_size--;
+    h->heap_size--; // 힙 재구성 전, 사이즈 먼저 줄이기
     // downHeap 함수 호출
     downHeap(h);
     return key;

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #define SIZE 100
-// 배열로 구현 ver1
+// 배열로 구현 ver2 // 아예 뽑아내는 경우
 
 typedef struct 
 {
@@ -33,11 +33,11 @@ int runSimulation(ArrayList* A, int n, int k)
     int r = 0;
     while (n > 1)
     {
-        r = (r + k) % n;
+        r = (r + k) % n; // 원형큐 연산처럼 연산(remove할 인덱스)
         remove_node(A, r);
         n--;
     }
-    return A->V[0];
+    return A->V[0]; // n = 1인 경우이므로, 하나만 남아있음.
 }
 
 int candle(int n, int k) // 배열 사이즈, 간격 

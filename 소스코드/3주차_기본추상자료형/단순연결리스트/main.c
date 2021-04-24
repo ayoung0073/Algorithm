@@ -1,6 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+init(LinkedListType* L)
+void addFirst(LinkedListType* L, int item)
+addFirst
+printList
+add
+addLast
+get
+set
+remove_node
+*/
+
 // 단순 연결 리스트 구현
 typedef struct ListNode
 {

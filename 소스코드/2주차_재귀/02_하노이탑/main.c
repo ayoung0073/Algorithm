@@ -13,7 +13,26 @@ void rHanoi(int n, char from, char aux, char to) // 이동해야 할 원반 수,
     }
 }
 
-void main()
+int main()
 {
     rHanoi(4, 'A', 'B', 'C');
+    return 0;
 }
+
+/*
+Disk 1 : Move from A to B
+Disk 2 : Move from A to C
+Disk 1 : Move from B to C
+Disk 3 : Move from A to B
+Disk 1 : Move from C to A
+Disk 2 : Move from C to B
+Disk 1 : Move from A to B
+Disk 4 : Move from A to C
+Disk 1 : Move from B to C
+Disk 2 : Move from B to A
+Disk 1 : Move from C to A
+Disk 3 : Move from B to C
+Disk 1 : Move from A to B
+Disk 2 : Move from A to C
+Disk 1 : Move from B to C
+*/

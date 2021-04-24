@@ -20,7 +20,7 @@ int recur_power(int x, int n) // 시간 복잡도 O(log2N)
         return x * recur_power(x * x, (n - 1) / 2);
 }   
 
-void main()
+int main()
 {
     float start = clock();
     printf("2 ^ 10 = %d\n", iter_power(2, 10));
@@ -31,4 +31,6 @@ void main()
     printf("2 ^ 10 = %d\n", recur_power(2, 10));
     end = clock();
     printf("%f\n", end - start); 
+
+    return 0;
 }
