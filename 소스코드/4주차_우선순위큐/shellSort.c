@@ -14,7 +14,7 @@
 //     {
 //         save = list[i];
 //         for(j = i - 1; j >= 0 && list[j] > save; j--) // j 조건 범위 체크하기 !
-//             list[j + 1] = list[j];
+//             list[ㅇㅇj + 1] = list[j];
 //         list[j + 1] = save;
 //     }
 // }
