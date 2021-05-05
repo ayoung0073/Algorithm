@@ -1,19 +1,24 @@
-from collections import deque
+## 숨바꼭질
+import heapq
 n, k = map(int, input().split())
-q = deque([(n, 0)])
-INF = 100001
-visited = [False] * INF
-sec = 0
+
+INF = int(1e9)
+visited = [False] * 100001
+q = [(0, n)] # second, now
+visited[n] = True
+ 
 while q:
-  x, sec = q.popleft()
-  visited[x] = True
-
-  if x == k: break
-  if x - 1 >= 0 and not visited[x - 1]:
-    q.append((x - 1, sec + 1))
-  if x + 1 < INF and not visited[x + 1]:
-    q.append((x + 1, sec + 1))
-  if 2 * x < INF and not visited[2 * x]:
-    q.append((x * 2, sec + 1))
-
-print(sec)
+  second, now = heapq.heappop(q)
+  if now == k:
+    print(second)
+    break
+  
+  if now * 2 <= 100000 and not visited[now * 2]:
+    visited[now * 2] = True
+    heapq.heappush(q, (second + 1, now * 2))
+  if now  + 1 <= 100000 and not visited[now + 1]:
+    visited[now + 1] = True
+    heapq.heappush(q, (second + 1, now + 1))
+  if now - 1 >= 0 and not visited[now - 1]:
+    visited[now - 1] = True
+    heapq.heappush(q, (second + 1, now - 1))
