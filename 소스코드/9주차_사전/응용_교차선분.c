@@ -22,7 +22,7 @@ typedef struct
 }Event;
 
 void insertion_sort(Event ev[], int n)
-{
+{ // 삽입 정렬 
     int i, j;
     Event item;
     for (i = 1; i < n; i++)
@@ -49,7 +49,7 @@ void findIntersectingSegment(Event ev[])
             if (openSegments[j] != 0)
             {
                 is[iCnt].id1 = openSegments[j];
-                is[iCnt].id2 = ev[i].id;
+                is[iCnt].id2 = ev[i].id; // 선분 번호
                 iCnt++;
             }
             openSegments[oCnt++] = ev[i].id;
