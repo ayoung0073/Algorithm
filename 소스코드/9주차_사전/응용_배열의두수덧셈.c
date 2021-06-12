@@ -42,13 +42,13 @@ int findElement(Dict D[], int v)
     return -1;
 }
 
-void findIndexPair(Dict D[], int A[], int s)
+void findIndexPair(Dict D[], int A[], int s) // s : sum
 {
     int j;
     for (int i = 0; i < SIZE; i++)
     {
         int v = s - A[i];
-        j = findElement(D, v); // 이진탐색으로 찾기
+        j = findElement(D, v); // 이진탐색으로 찾기(index 반환)
         if (j != -1)
         {
             printf("FindElement : A[%d] = %d, A[%d] = %d\n", i, A[i], j, A[j]);

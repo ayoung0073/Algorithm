@@ -85,7 +85,7 @@ int rFindElement(DictType* d, int key, int l, int r) // 이진탐색 재귀함�
     return -1;
 }
 
-int findElement(DictType* d, int key, int l, int r)
+int findElement(DictType* d, int key, int l, int r) // 반복문
 {
     int mid;
     while (l <= r)

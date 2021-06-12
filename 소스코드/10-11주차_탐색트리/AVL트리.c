@@ -78,12 +78,10 @@ int heightUpdateAndBalanceCheck(TreeNode* w) // 높이 균형 속성을 업데�
 
     b = r->height - l->height;
 
-    if (b*b < 2) // dmatndlf tneh dlTdmsl
+    if (b*b < 2) // 음수 조건 고려
         return 1;
     else   
         return 0;
-
-
 }
 
 TreeNode* restructure(TreeType* T, TreeNode* x)

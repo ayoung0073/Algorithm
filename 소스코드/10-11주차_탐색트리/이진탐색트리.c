@@ -29,7 +29,7 @@ void expandExternal(TreeNode* w) // 외부노드확장
 
     l->left = NULL;
     l->right = NULL;
-    l->parent = w;
+    l->parent = w; // ㅅㅓ로 연결하자
     r->left = NULL;
     r->right = NULL;
     r->parent = w;
@@ -152,6 +152,7 @@ int main()
     insertItem(T, 9);
     insertItem(T, 2);
     insertItem(T, 1);
+    insertItem(T, 2);
     insertItem(T, 7);
     insertItem(T, 15);
     insertItem(T, 11);
