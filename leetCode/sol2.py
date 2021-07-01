@@ -4,15 +4,16 @@
 #         self.val = val
 #         self.next = next
 
-
 def nodeToInt(l):
-    q = deque()
-    while l != None:
-        q.appendleft(l.val)
+    num = 0
+    mul = 1
+    while l:
+        num += l.val * mul
+        mul *= 10
         l = l.next
-    return int(''.join(str(i) for i in list(q)))
+    return num
 
-# 76 ms	14.4 MB
+# 76 ms	14.4 MB -> 68 ms 14.2 MB
 class Solution:
     def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
         num1 = nodeToInt(l1)
