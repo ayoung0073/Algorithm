@@ -1,27 +1,30 @@
+# 58984KB	388ms
 import sys
 import heapq
 
-input = sys.stdin.readline
+input = sys.stdin.readline 
+
+arr = []
 n = int(input())
-lessons = []
 for _ in range(n):
   s, t = map(int, input().split())
-  lessons.append((s, t))
+  arr.append((s, t))
 
-lessons.sort(key = lambda x : x[0])
+arr.sort()
 
-arr = [] # 끝나는 시간 배열
-for lesson in lessons:
-  s, t = lesson
-  if arr and arr[0] <= s: 
-    # 끝나는 시간의 최솟값이 시작시간보다 빠른 경우, 
-    # 최솟값을 갱신하기 때문에, 최솟값을 pop한 후
-    # push
-    heapq.heappop(arr)
-  heapq.heappush(arr, t)
-  print(s, t, arr)
+q = []
 
-print(len(arr))
+for i in arr:
+  if not q:
+    heapq.heappush(q, i[1])
+  elif i[0] >= q[0]: # 강의실 새로 배정 안해도 되는 경우 
+    heapq.heappop(q)
+    heapq.heappush(q, i[1])
+  else: # 새로 배정하는 경우
+    heapq.heappush(q, i[1])
+  
+print(len(q))
+    
 
 ### 시간 초과 케이스
 # import sys
