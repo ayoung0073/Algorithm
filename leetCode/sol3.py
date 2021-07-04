@@ -21,3 +21,18 @@ class Solution:
                 string += s[j]
                 
         return ans    
+    
+# 76 ms	14.3 MB
+class Solution:
+def lengthOfLongestSubstring(self, s):
+    string = ''
+    max_length = 0
+
+    for x in s:
+        if x in string:
+            string = string[string.index(x) + 1:]
+
+        string += x    
+        max_length = max(max_length, len(string))
+
+    return max_length
