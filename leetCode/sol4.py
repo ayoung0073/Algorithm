@@ -32,3 +32,19 @@ class Solution:
             return (merged_arr[(m + n) // 2] + merged_arr[(m + n) // 2 - 1]) / 2
         else:
             return merged_arr[(m + n) // 2]
+
+# 88 ms	    14.4 MB
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        
+        nums1.extend(nums2)
+        nums1.sort()
+        
+        quot = len(nums1) // 2
+        
+        
+        if len(nums1) % 2 == 0: # 짝수인 경우
+            return (nums1[quot] + nums1[quot - 1]) / 2
+        else:
+            return nums1[quot]
+            
