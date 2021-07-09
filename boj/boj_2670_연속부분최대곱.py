@@ -8,9 +8,11 @@ for _ in range(n):
 
 max_val = max(arr)
 for i in range(n - 1):
-  mul_val = arr[i]
-  for j in range(i + 1, n):
+  mul_val = 1
+  sub_max_val = arr[i]
+  for j in range(i, n):
     mul_val *= arr[j]
-    max_val = max(mul_val, max_val)
+    sub_max_val = max(mul_val, sub_max_val)
+  max_val = max(sub_max_val, max_val)
 
-print('%.3f'%(max_val))
+print('%.3f'%max_val)
