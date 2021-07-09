@@ -1,15 +1,16 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 arr = []
-
 for _ in range(n):
   arr.append(float(input()))
 
-ans = 0
+max_val = max(arr)
+for i in range(n - 1):
+  mul_val = arr[i]
+  for j in range(i + 1, n):
+    mul_val *= arr[j]
+    max_val = max(mul_val, max_val)
 
-for i in range(n):
-  mul = 1
-  for j in range(i, n):
-    mul *= arr[j]
-    ans = max(mul, ans)
-  
-print('%.3f'%(ans))
+print('%.3f'%(max_val))
