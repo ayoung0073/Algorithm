@@ -1,16 +1,17 @@
-## 1715. 카드 정렬하기
-import heapq
+import sys
+from heapq import *
+input = sys.stdin.readline
 
 n = int(input())
 cards = []
 for _ in range(n):
-  heapq.heappush(cards, int(input())) # heapq를 이용한 정렬
+  heappush(cards, int(input()))
 
-result = 0
+ans = 0
 while len(cards) >= 2:
-  a = heapq.heappop(cards)
-  b = heapq.heappop(cards)
-  heapq.heappush(cards, a + b) 
-  result += (a + b)
+  a = heappop(cards)
+  b = heappop(cards)
+  heappush(cards, a + b)
+  ans += a + b
 
-print(result)
+print(ans)
