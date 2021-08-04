@@ -20,3 +20,14 @@ def solution(number, k):
         answer.append(number[max_idx]) 
         
     return ''.join(str(i) for i in answer)
+
+
+### 2
+def solution(number, k):
+    stack = []
+    for i in range(len(number)):
+        while stack and k > 0 and stack[-1] < number[i]:
+            stack.pop()
+            k -= 1
+        stack.append(number[i])
+    return ''.join(stack[:len(stack) - k])
