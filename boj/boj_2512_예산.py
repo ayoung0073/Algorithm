@@ -1,31 +1,33 @@
+## 예산
+
 import sys
+input = sys.stdin.readline
 
 n = int(input())
-req = list(map(int, sys.stdin.readline().rstrip().split()))
-all = int(input())
+requests = list(map(int, input().split()))
+all_val = int(input())
 
-# 처음 초기화한 upper * n은 all을 넘지 않음
-upper = all // n
+left = 0
+right = max(requests) 
 
-def assign(req, upper):
-  sum = 0
-  for i in req:
-    if i >= upper:
-      sum += upper
+ans = 0
+
+while left <= right:
+  upper = (left + right) // 2
+  sum_val = 0
+  for request in requests:
+    if request < upper:
+      sum_val += request
     else:
-      sum += i
-  return sum
+      sum_val += upper
+      
+  if sum_val == all_val:
+    print(upper)
+    exit(0)
+  elif sum_val > all_val:
+    right = upper - 1
+  else:
+    left = upper + 1
+    ans = upper
 
-# 총 예산이 배정된 예산의 합보다 클 때, 반복문 종료
-if sum(req) <= all:
-  print(max(req))
-else:
-  while True:
-    if assign(req, upper) < all:
-      upper += 1
-    elif assign(req, upper) == all:
-      break
-    else:
-      upper -= 1
-      break
-  print(upper)
+print(ans)
