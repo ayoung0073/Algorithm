@@ -1,66 +1,50 @@
-# 14502. 연구소
+## 14502. 연구소 
+
+from itertools import combinations
+from collections import deque
 import sys
 import copy
 
-input = sys.stdin.readline
+input = sys.stdin.readline 
 n, m = map(int, input().split())
-result = 0
-maps = []
-temp = [[0 for j in range(m)] for i in range(n)]
+zero = []
+virus = []
 
-for _ in range(n):
-  tmp = list(map(int, input().split()))
-  maps.append(tmp)
+arr = [[0] * m for _ in range(n)]
 
-dx = [-1, 1, 0, 0]
-dy = [0, 0, -1, 1]
+for row in range(n):
+    arr[row] = list(map(int, input().split()))
+    for col in range(m):
+      if arr[row][col] == 0:
+        zero.append((row, col))
+      elif arr[row][col] == 2:
+        virus.append((row, col))
 
-def virus(x, y): # x, y 좌표의 상하좌우 바이러스 퍼뜨리기
-  for i in range(4):
-    nx = dx[i] + x
-    ny = dy[i] + y
-    if nx >= 0 and nx < n and ny >= 0 and ny < m:
-      if temp[nx][ny] == 0:
-        temp[nx][ny] = 2 # 바이러스 전염
-        virus(nx, ny) # 재귀 함수 호출
+move = [(0, -1), (0, 1), (-1, 0), (1, 0)]
+def bfs(arr):
+  q = deque(virus)
+  while q:
+    now = q.popleft()
+    for dx, dy in move:
+      next_x = now[0] + dx
+      next_y = now[1] + dy
+      if 0 <= next_x < n and 0 <= next_y < m:
+        if arr[next_x][next_y] == 0:
+          arr[next_x][next_y] = 2
+          q.append((next_x, next_y))
 
-def max_area(): 
-  area = 0
-  for i in range(n):
-    # for j in range(m):
-    #   if temp[i][j] == 0:
-    #     area += 1
-    area += temp[i].count(0)
-  return area
-# 벽 설치한 뒤 리스트
-# dfs를 이용해 벽을 설치하면서, 매번 안전 영역 크기 계산
-def dfs(count):
-  global result # 리턴값
-  global temp
+  ret = 0
+  for row in arr:
+    ret += row.count(0)
+  return ret
 
-  if count == 3: # 벽 3개 모두 설치한 경우
-    temp = copy.deepcopy(maps) # global 선언 해줘야 함
-    # for i in range(n):
-    #   for j in range(m):
-    #     temp[i][j] = maps[i][j]
-    
-    for i in range(n):
-      for j in range(m):
-        if temp[i][j] == 2:
-          virus(i, j)
-    result = max(result, max_area())
-
-    return
-
-  # 빈 공간에 벽 설치
-  for i in range(n):
-    for j in range(m):
-      if maps[i][j] == 0:
-        maps[i][j] = 1
-        count += 1
-        dfs(count)
-        maps[i][j] = 0
-        count -= 1
+ans = 0
+for walls in combinations(zero, 3):
+  now = copy.deepcopy(arr)
+  for wall in walls:
+    # 세 개 벽 추가
+    now[wall[0]][wall[1]] = 1
   
-dfs(0)
-print(result)
+  ans = max(bfs(now), ans)
+
+print(ans)
