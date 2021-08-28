@@ -1,31 +1,32 @@
-## 2110. 공유기 설치
-import sys
-
+## 2110 공유기 설치
+import sys 
 input = sys.stdin.readline
-n, c = map(int, input().split()) # 집, 공유기의 개수
 
-home = [int(input()) for _ in range(n)]
+n, c = map(int, input().split())
+homes = [int(input()) for _ in range(n)]
+homes.sort()
 
-home.sort()
+install = 0
 
-# 첫집과 끝집
-start = 0
-end = home[-1]
+left = 0
+right = homes[-1] - homes[0]
 
-result = 0
-while start <= end:
-  mid = (start + end) // 2 # gap
-  val = home[0]
-  install = 1
+ans = 0
+
+while left <= right:
+  mid = (left + right) // 2
+  cnt = 1
+  before = homes[0]
+
+  for home in homes[1:]:
+    if home >= before + mid:
+      cnt += 1
+      before = home
   
-  for i in range(1, n):
-    if home[i] >= val + mid:
-      install += 1  
-      val = home[i]
-  if install >= c: # 거리 넓히자
-    start = mid + 1
-    result = mid
-  else: # 거리 좁히자
-    end = mid - 1
+  if cnt >= c:
+    ans = max(mid, ans)
+    left = mid + 1
+  else:
+    right = mid - 1
 
-print(result)
+print(ans)
